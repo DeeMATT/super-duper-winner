@@ -1,20 +1,20 @@
 from .models import Pages
 
 
-def validateKeys(payload, requiredKeys):
+def validate_keys(payload, required_keys):
     # extract keys from payload
-    payloadKeys = list(payload.keys())
+    payload_keys = list(payload.keys())
 
     # check if extracted keys is present in requiredKeys
-    missingKeys = []
-    for key in requiredKeys:
-        if key not in payloadKeys:
-            missingKeys.append(key)
+    missing_keys = []
+    for key in required_keys:
+        if key not in payload_keys:
+            missing_keys.append(key)
 
-    return missingKeys
+    return missing_keys
 
 
-def getPageBySlug(slug):
+def get_page_by_slug(slug):
     try:
         return Pages.objects.get(slug=slug)
     
@@ -22,7 +22,7 @@ def getPageBySlug(slug):
         return None
 
 
-def getPageByTitle(title):
+def get_page_by_title(title):
     try:
         return Pages.objects.get(title=title)
     

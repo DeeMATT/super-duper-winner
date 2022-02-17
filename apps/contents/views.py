@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import serializers
 from .utils import (
-    validateKeys, getPageBySlug, getPageByTitle
+    validate_keys, get_page_by_slug, get_page_by_title
 )
 
 
@@ -29,7 +29,7 @@ class PageListView(APIView):
 
             body = data.get('body')
             # check if required fields are present in body object
-            missingKeys = validateKeys(payload=body, requiredKeys=['html', 'css', 'js'])
+            missingKeys = validate_keys(payload=body, requiredKeys=['html', 'css', 'js'])
             if missingKeys:
                 raise serializers.ValidationError({
                     "body": "The body field should contain the key and values for: ['html', 'css', 'js']"
@@ -37,7 +37,7 @@ class PageListView(APIView):
 
             # check if title already exists
             title = data.get('title')
-            if getPageByTitle(title):
+            if get_page_by_title(title):
                 raise serializers.ValidationError({
                     "title": "There is an already existing record with same title"
                 })
@@ -52,7 +52,7 @@ class PageDetailView(APIView):
     Retrieve, update or delete a page instance.
     """
     def get_object(self, slug):
-        obj = getPageBySlug(slug)
+        obj = get_page_by_slug(slug)
         if not obj:
             raise Http404
         
@@ -71,7 +71,7 @@ class PageDetailView(APIView):
 
             body = data.get('body')
             # check if required fields are present in body object
-            missingKeys = validateKeys(payload=body, requiredKeys=['html', 'css', 'js'])
+            missingKeys = validate_keys(payload=body, requiredKeys=['html', 'css', 'js'])
             if missingKeys:
                 raise serializers.ValidationError({
                     "body": "The body field should contain the key and values for: ['html', 'css', 'js']"
@@ -79,7 +79,7 @@ class PageDetailView(APIView):
 
             # check if title already exists
             title = data.get('title')
-            existing_page = getPageByTitle(title)
+            existing_page = get_page_by_title(title)
             if existing_page and page.id != existing_page.id:
                 raise serializers.ValidationError({
                     "title": "There is an already existing record with same title"
