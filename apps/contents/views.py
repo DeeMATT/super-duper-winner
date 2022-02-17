@@ -29,7 +29,7 @@ class PageListView(APIView):
 
             body = data.get('body')
             # check if required fields are present in body object
-            missingKeys = validate_keys(payload=body, requiredKeys=['html', 'css', 'js'])
+            missingKeys = validate_keys(payload=body, required_keys=['html', 'css', 'js'])
             if missingKeys:
                 raise serializers.ValidationError({
                     "body": "The body field should contain the key and values for: ['html', 'css', 'js']"
@@ -71,7 +71,7 @@ class PageDetailView(APIView):
 
             body = data.get('body')
             # check if required fields are present in body object
-            missingKeys = validate_keys(payload=body, requiredKeys=['html', 'css', 'js'])
+            missingKeys = validate_keys(payload=body, required_keys=['html', 'css', 'js'])
             if missingKeys:
                 raise serializers.ValidationError({
                     "body": "The body field should contain the key and values for: ['html', 'css', 'js']"
