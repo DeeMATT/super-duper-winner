@@ -1,0 +1,11 @@
+version: '3'
+services:
+
+  api: 
+    build: .
+    image: wfp_engineering-api
+    container_name: wfp_engineering-api
+    restart: always
+    command: ["daphne", "-b", "0.0.0.0", "-p", "8080", "config.asgi:application"]
+    ports:
+      - 8080:8080
